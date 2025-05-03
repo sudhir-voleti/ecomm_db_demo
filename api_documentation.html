@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expanded E-commerce API Documentation (Toy Demo)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .collapsible {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 16px;
+      width: 100%;
+      border-radius: 5px;
+    }
+    .collapsible:hover {
+      background-color: #0056b3;
+    }
+    .content {
+      padding: 0 15px;
+      display: none;
+      overflow: hidden;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+    ul, ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    code {
+      background-color: #f0f0f0;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Expanded E-commerce API Documentation (Toy Demo)</h1>
+  <p><strong>Date:</strong> May 1, 2025</p>
+
+  <div class="section">
+    <h2>Overview</h2>
+    <p>This API provides access to an e-commerce startup's database with data on customers, products, and orders. It uses <code>sqldf</code> in R to query three tables: <code>customers</code>, <code>products</code>, and <code>orders</code>.</p>
+  </div>
+
+  <div class="section">
+    <h2>Database Schema</h2>
+
+    <button class="collapsible">Table: customers</button>
+    <div class="content">
+      <ul>
+        <li><code>customer_id</code> (integer): Unique ID for each customer (1 to 300).</li>
+        <li><code>name</code> (string): Customer name (e.g., "Customer 1").</li>
+        <li><code>email</code> (string): Customer email (e.g., "customer1@startup.com").</li>
+        <li><code>city</code> (string): Customer city (Delhi, Mumbai, Bangalore, Hyderabad, Ahmedabad, Chennai, Kolkata, Surat, Pune, Jaipur).</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Table: products</button>
+    <div class="content">
+      <ul>
+        <li><code>product_id</code> (integer): Unique ID for each product (1 to 100).</li>
+        <li><code>product_name</code> (string): Product name (e.g., "Product 1").</li>
+        <li><code>category</code> (string): Product category (Electronics, Fashion, Books, Home, Toys).</li>
+        <li><code>price</code> (numeric): Product price (between 100 and 1500).</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Table: orders</button>
+    <div class="content">
+      <ul>
+        <li><code>order_id</code> (integer): Unique ID for each order (1 to 1500).</li>
+        <li><code>customer_id</code> (integer): ID of the customer who placed the order.</li>
+        <li><code>product_id</code> (integer): ID of the product ordered.</li>
+        <li><code>quantity</code> (integer): Quantity ordered (1 to 10).</li>
+        <li><code>order_date</code> (date): Date of the order (between 2025-01-01 and 2025-04-30).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Available Endpoints (Simulated in R)</h2>
+
+    <button class="collapsible">Endpoint 1: Get Best-Selling Product Sales in a City</button>
+    <div class="content">
+      <ul>
+        <li><strong>Function Name</strong>: <code>get_best_selling_product_sales_in_city(city)</code></li>
+        <li><strong>Description</strong>: Retrieves the total sales of the best-selling product (by total amount) in a specified city.</li>
+        <li><strong>Parameters</strong>:
+          <ul>
+            <li><code>city</code> (string): The city to filter by (e.g., "Chennai").</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: JSON object with columns: <code>product_name</code>, <code>total_sales</code>.</li>
+        <li><strong>Example Query</strong>: Returns the best-selling product in Chennai.</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Endpoint 2: Get Bottom Cities by Sales</button>
+    <div class="content">
+      <ul>
+        <li><strong>Function Name</strong>: <code>get_bottom_cities_by_sales(num_cities)</code></li>
+        <li><strong>Description</strong>: Retrieves the bottom N cities by total sales.</li>
+        <li><strong>Parameters</strong>:
+          <ul>
+            <li><code>num_cities</code> (integer): Number of cities to return (e.g., 3).</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: JSON array with columns: <code>city</code>, <code>total_sales</code>.</li>
+        <li><strong>Example Query</strong>: Returns the bottom 3 cities by sales.</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Endpoint 3: Get Top Products by Quantity in a City</button>
+    <div class="content">
+      <ul>
+        <li><strong>Function Name</strong>: <code>get_top_products_by_quantity_in_city(city, num_products)</code></li>
+        <li><strong>Description</strong>: Retrieves the top N products by total quantity sold in a specified city.</li>
+        <li><strong>Parameters</strong>:
+          <ul>
+            <li><code>city</code> (string): The city to filter by (e.g., "Bangalore").</li>
+            <li><code>num_products</code> (integer): Number of products to return (e.g., 5).</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: JSON array with columns: <code>product_name</code>, <code>total_quantity</code>.</li>
+        <li><strong>Example Query</strong>: Returns the top 5 products by quantity in Bangalore.</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Endpoint 4: Get Order Count by City and Month</button>
+    <div class="content">
+      <ul>
+        <li><strong>Function Name</strong>: <code>get_orders_count_by_city_and_month(city, month, year)</code></li>
+        <li><strong>Description</strong>: Counts the number of orders in a specified city for a given month and year.</li>
+        <li><strong>Parameters</strong>:
+          <ul>
+            <li><code>city</code> (string): The city to filter by (e.g., "Hyderabad").</li>
+            <li><code>month</code> (string): The month (e.g., "03" for March).</li>
+            <li><code>year</code> (integer): The year (e.g., 2025).</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: JSON object with column: <code>order_count</code>.</li>
+        <li><strong>Example Query</strong>: Returns the number of orders in Hyderabad in March 2025.</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Endpoint 5: Get Average Order Value by Category and City</button>
+    <div class="content">
+      <ul>
+        <li><strong>Function Name</strong>: <code>get_avg_order_value_by_category_and_city(category, city)</code></li>
+        <li><strong>Description</strong>: Calculates the average order value (price * quantity) for a specified category in a specified city.</li>
+        <li><strong>Parameters</strong>:
+          <ul>
+            <li><code>category</code> (string): The product category (e.g., "Electronics").</li>
+            <li><code>city</code> (string): The city to filter by (e.g., "Mumbai").</li>
+          </ul>
+        </li>
+        <li><strong>Returns</strong>: JSON object with column: <code>avg_order_value</code>.</li>
+        <li><strong>Example Query</strong>: Returns the average order value for Electronics in Mumbai.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Notes</h2>
+    <ul>
+      <li>The API uses <code>sqldf</code> to run SQL queries on R DataFrames (<code>customers</code>, <code>products</code>, <code>orders</code>).</li>
+      <li>Total amount for an order is calculated as <code>price * quantity</code>.</li>
+      <li>Dates are in 'YYYY-MM-DD' format; use <code>strftime()</code> for date filtering (e.g., <code>strftime('%m', order_date)</code> for month).</li>
+      <li>The API is simulated in R for demo purposes.</li>
+    </ul>
+  </div>
+
+  <script>
+    // JavaScript for collapsible sections
+    const collapsibles = document.getElementsByClassName("collapsible");
+    for (let i = 0; i < collapsibles.length; i++) {
+      collapsibles[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        const content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
